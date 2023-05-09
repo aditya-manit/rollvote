@@ -3,14 +3,14 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Script.sol";
 
-import {Counter} from "src/Counter.sol";
+import {Blog} from "src/Contract.sol";
 
-contract CounterScript is Script {
+contract ContractScript is Script {
     function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
-        new Counter(10);
+        new Blog("Celestia Blog");
         vm.stopBroadcast();
     }
 }
