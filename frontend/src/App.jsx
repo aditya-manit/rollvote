@@ -5,6 +5,7 @@ import { create } from 'ipfs-http-client'
 import { Buffer } from 'buffer'
 import Blog from '../Blog.json'
 import { useAccount } from "wagmi";
+import './App.css'
 
 /* configure authorization for Infura and IPFS */
 const auth =
@@ -20,7 +21,7 @@ const client = create({
     },
 });
 
-const contractAddress = "0x641a7e16042de68c630fd490d8f4b60bbf201c02"
+const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
 
 function App() {
     useEffect(() => {
@@ -80,41 +81,43 @@ function App() {
     }
 
     return (
-        <div style={outerContainerStyle}>
-            <div style={innerContainerStyle}>
+        <div className="outer-container">
+            <div className="inner-container">
                 <h1>Modular Rollup Blog</h1>
                 <p>This allows users to securely create and share blog posts on the blockchain without the need for a centralized server or authority.</p>
-                {!address ? (<div>
-                    <h3>Getting Started</h3>
-                    <p>First, you will need to connect your Ethereum wallet to Ethermint to display the posts from the smart contract and make posts.</p>
-                </div> ) : null}
+                {!address ? (
+                    <div>
+                        <h3>Getting Started</h3>
+                        <p>First, you will need to connect your Ethereum wallet to Ethermint to display the posts from the smart contract and make posts.</p>
+                    </div>
+                ) : null}
                 <br />
-                <h3 style={{ justifyContent: 'right', textAlign: 'right'}}>Connect your Ethereum wallet to begin ✨</h3>
-                <div style={buttonContainerStyle}>
+                <h3 className="wallet-connect-heading">Connect your Ethereum wallet to begin ✨</h3>
+                <div className="button-container">
                     <ConnectButton />
                 </div>
                 {address ? (
-                    <div style={buttonContainerStyle}>
-                        <button onClick={() => toggleView('view-posts')} style={buttonStyle}>View Posts</button>
-                        <button  onClick={() => toggleView('create-post')} style={buttonStyle}>Create Post</button>
+                    <div className="button-container">
+                        <button onClick={() => toggleView('view-posts')} className="button-style">View Posts</button>
+                        <button onClick={() => toggleView('create-post')} className="button-style">Create Post</button>
                     </div>
                 ) : null}
                 {
                     viewState === 'view-posts' && address && (
                         <div>
-                            <div style={postContainerStyle}>
+                            <div className="post-container">
                                 <h1>Posts</h1>
                                 {
                                     posts.map((post, index) => (
                                         <div key={index}>
                                             <h2>{post.title}</h2>
-                                            <button style={{ fontSize: '16px' }} onClick={() => window.open(`https://infura-ipfs.io/ipfs/${post.content}`)}>Read on IPFS</button>
+                                            <button className="read-on-ipfs" onClick={() => window.open(`https://infura-ipfs.io/ipfs/${post.content}`)}>Read on IPFS</button>
                                             {
-                  //                                <ReactMarkdown>
-                  //   {post.postContent}
-                  // </ReactMarkdown>
+                                                //                          <ReactMarkdown>
+                                                //   {post.postContent}
+                                                // </ReactMarkdown>
                                             }
-                                            <p style={mbidStyle}>GMID: {post.id}</p>
+                                            <p className="mbid-style">GMID: {post.id}</p>
                                         </div>
                                     ))
                                 }
@@ -124,19 +127,19 @@ function App() {
                 }
                 {
                     viewState === 'create-post' && (
-                        <div style={formContainerStyle}>
+                        <div className="form-container">
                             <h2>Create Post</h2>
                             <input
                                 placeholder='Title'
                                 onChange={e => setTitle(e.target.value)}
-                                style={inputStyle}
+                                className="input-style"
                             />
                             <textarea
                                 placeholder='Content'
                                 onChange={e => setContent(e.target.value)}
-                                style={inputStyle}
+                                className="input-style"
                             />
-                            <button onClick={createPost}>Create Post</button>
+                            <button onClick={createPost} className="button-style">Create Post</button>
                         </div>
                     )
                 }
@@ -145,58 +148,5 @@ function App() {
     )
 }
 
-const outerContainerStyle = {
-    width: '90vw',
-    height: '100vh',
-    padding: '50px 0px',
-}
-
-const innerContainerStyle = {
-    width: '100%',
-    maxWidth: '800px',
-    margin: '0 auto',
-}
-
-const formContainerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-}
-
-const inputStyle = {
-    width: '400px',
-    marginBottom: '10px',
-    padding: '10px',
-    height: '40px',
-}
-
-const postContainerStyle = {
-    margin: '0 auto',
-    padding: '1em',
-    width: '90%',
-    maxWidth: '800px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'start',
-    justifyContent: 'center',
-}
-
-const mbidStyle = {
-    fontSize: '10px',
-    textAlign: 'start',
-}
-
-const buttonStyle = {
-    marginTop: 15,
-    marginRight: 5,
-    border: '1px solid rgba(255, 255, 255, .2)'
-}
-
-const buttonContainerStyle = {
-    marginTop: 15,
-    marginRight: 5,
-    display: 'flex',
-    justifyContent: 'right',
-}
 
 export default App

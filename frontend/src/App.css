@@ -1,42 +1,63 @@
-#root {
-  max-width: 1280px;
+.outer-container {
+  width: 90vw;
+  height: 100vh;
+  padding: 50px 0px;
+}
+
+.inner-container {
+  width: 100%;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-style {
+  width: 400px;
+  margin-bottom: 10px;
+  padding: 10px;
+  height: 40px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.post-container {
+  margin: 0 auto;
+  padding: 1em;
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
 }
 
-.card {
-  padding: 2em;
+.mbid-style {
+  font-size: 10px;
+  text-align: start;
 }
 
-.read-the-docs {
-  color: #888;
+.button-style {
+  margin-top: 15px;
+  margin-right: 5px;
+  border: 1px solid rgba(255, 255, 255, .2);
+}
+
+.button-container {
+  margin-top: 15px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: right;
+}
+
+
+.wallet-connect-heading {
+  justify-content: right;
+  text-align: right;
+}
+
+.read-on-ipfs {
+  font-size: 16px;
 }

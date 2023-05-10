@@ -55,7 +55,7 @@ const wagmiClient = createClient({
 
 const containerStyle = {
     width: '1100px',
-    margin: '0 auto'
+    margin: 'auto'
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
