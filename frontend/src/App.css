@@ -72,11 +72,11 @@ html, body {
 
 .proposal-container {
   margin: 0 auto;
-  /*padding: 1em;*/
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, calc(25% - 1em))); /* 25% for 4 cards per row */
+  grid-auto-rows: minmax(100px, auto); /* setting a minimum height for the cards */
   grid-gap: 1em;
-  align-items: flex-start;
+  align-items: stretch; /* making all cards have the same height */
   padding: 40px 0px;
 }
 
@@ -85,7 +85,13 @@ html, body {
   border-radius: 20px;
   padding: 1em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex; /* making the card a flex container */
+  flex-direction: column; /* arranging content vertically */
+  justify-content: space-between; /* distributing space evenly between content */
+  border: 1px solid rgba(0, 0, 0, 0.2); /* adding a dark border line */
 }
+
+
 
 .proposal-card:hover {
   transform: translateY(-5px);
