@@ -1,13 +1,24 @@
 .outer-container {
-  width: 90vw;
+  width: auto;
   height: 100vh;
-  padding: 50px 0px;
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-items: stretch;
 }
 
 .inner-container {
   width: 100%;
-  max-width: 800px;
+  max-width: 1400px;
   margin: 0 auto;
+}
+
+
+#root {
+  max-width: 1400px;
+  margin: 0 auto;
+  /*padding: 2rem;*/
+  /*text-align: center;*/
 }
 
 .form-container {
@@ -26,13 +37,27 @@
 .post-container {
   margin: 0 auto;
   padding: 1em;
-  width: 90%;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
+  width: 100%;
+  max-width: 1400px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 1em;
+  align-items: flex-start;
 }
+
+.post-card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 1em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
 
 .mbid-style {
   font-size: 10px;
@@ -60,4 +85,22 @@
 
 .read-on-ipfs {
   font-size: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+body {
+  /*margin: 0;*/
+  width: auto;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  /*display: block;*/
+  margin: 0px;
 }

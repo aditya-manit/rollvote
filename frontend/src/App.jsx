@@ -83,69 +83,79 @@ function App() {
     return (
         <div className="outer-container">
             <div className="inner-container">
-                <h1>Modular Rollup Blog</h1>
-                <p>This allows users to securely create and share blog posts on the blockchain without the need for a centralized server or authority.</p>
-                {!address ? (
+                <div className="header">
                     <div>
-                        <h3>Getting Started</h3>
-                        <p>First, you will need to connect your Ethereum wallet to Ethermint to display the posts from the smart contract and make posts.</p>
+                        <h1>Modular Rollup Blog</h1>
+                        <p>
+                            This allows users to securely create and share blog posts on the
+                            blockchain without the need for a centralized server or
+                            authority.
+                        </p>
                     </div>
-                ) : null}
-                <br />
-                <h3 className="wallet-connect-heading">Connect your Ethereum wallet to begin ✨</h3>
-                <div className="button-container">
-                    <ConnectButton />
+                    <div className="wallet-connect-heading">
+                        {<ConnectButton />}
+                    </div>
                 </div>
-                {address ? (
+                {address && (
                     <div className="button-container">
-                        <button onClick={() => toggleView('view-posts')} className="button-style">View Posts</button>
-                        <button onClick={() => toggleView('create-post')} className="button-style">Create Post</button>
+                        <button
+                            onClick={() => toggleView('view-posts')}
+                            className="button-style"
+                        >
+                            View Posts
+                        </button>
+                        <button
+                            onClick={() => toggleView('create-post')}
+                            className="button-style"
+                        >
+                            Create New Proposal
+                        </button>
                     </div>
-                ) : null}
-                {
-                    viewState === 'view-posts' && address && (
-                        <div>
-                            <div className="post-container">
-                                <h1>Posts</h1>
-                                {
-                                    posts.map((post, index) => (
-                                        <div key={index}>
-                                            <h2>{post.title}</h2>
-                                            <button className="read-on-ipfs" onClick={() => window.open(`https://infura-ipfs.io/ipfs/${post.content}`)}>Read on IPFS</button>
-                                            {
-                                                //                          <ReactMarkdown>
-                                                //   {post.postContent}
-                                                // </ReactMarkdown>
-                                            }
-                                            <p className="mbid-style">GMID: {post.id}</p>
-                                        </div>
-                                    ))
-                                }
-                            </div>
+                )}
+                {viewState === 'view-posts' && address && (
+                    <div>
+                        <h1>Posts</h1>
+                        <div className="post-container">
+                            {posts.map((post, index) => (
+                                <div key={index} className="post-card">
+                                    <h2>
+                                        {post.id}. {post.title}
+                                    </h2>
+                                    <button
+                                        className="read-on-ipfs"
+                                        onClick={() =>
+                                            window.open(`https://infura-ipfs.io/ipfs/${post.content}`)
+                                        }
+                                    >
+                                        Read on IPFS
+                                    </button>
+                                </div>
+                            ))}
                         </div>
-                    )
-                }
-                {
-                    viewState === 'create-post' && (
-                        <div className="form-container">
-                            <h2>Create Post</h2>
-                            <input
-                                placeholder='Title'
-                                onChange={e => setTitle(e.target.value)}
-                                className="input-style"
-                            />
-                            <textarea
-                                placeholder='Content'
-                                onChange={e => setContent(e.target.value)}
-                                className="input-style"
-                            />
-                            <button onClick={createPost} className="button-style">Create Post</button>
-                        </div>
-                    )
-                }
+                    </div>
+                )}
+                {viewState === 'create-post' && (
+                    <div className="form-container">
+                        <h2>Create New Proposal</h2>
+                        <input
+                            placeholder="Title"
+                            onChange={(e) => setTitle(e.target.value)}
+                            className="input-style"
+                        />
+                        <textarea
+                            placeholder="Content"
+                            onChange={(e) => setContent(e.target.value)}
+                            className="input-style"
+                        />
+                        <button onClick={createPost} className="button-style">
+                            Create New Proposal
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
-    )
+    );
+
 }
 
 

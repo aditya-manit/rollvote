@@ -33,7 +33,8 @@ const ethermint = {
 
 // remove chain.localhost or ethermint depending on which you want to connect to
 const { chains, provider } = configureChains(
-    [chain.localhost, ethermint],
+    // [chain.localhost, ethermint],
+    [ethermint],
     [publicProvider()]
 );
 
@@ -54,8 +55,8 @@ const wagmiClient = createClient({
 })
 
 const containerStyle = {
-    width: '1100px',
-    margin: 'auto'
+    // width: '1100px',
+    // margin: '0 auto'
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
