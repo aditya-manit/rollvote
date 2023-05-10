@@ -1,48 +1,83 @@
 .outer-container {
-  width: auto;
+  /*width: auto;*/
   height: 100vh;
-  padding: 20px 50px;
+  padding: 20px 140px;
   display: flex;
   flex-direction: column;
-  justify-items: stretch;
+  justify-items: flex-start;
 }
 
 .inner-container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
 }
-
 
 #root {
-  max-width: 1400px;
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
-  /*padding: 2rem;*/
-  /*text-align: center;*/
 }
+
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 
 .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding: 40px 0px;
 }
 
 .input-style {
-  width: 400px;
+  width: 100%;
   margin-bottom: 10px;
   padding: 10px;
   height: 40px;
+  box-sizing: border-box;
+  border-radius: 40px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
+
+.input-style:focus {
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.textarea-style {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  height: 150px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  resize: vertical;
+}
+
+.textarea-style:focus {
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 .post-container {
   margin: 0 auto;
-  padding: 1em;
-  width: 100%;
-  max-width: 1400px;
+  /*padding: 1em;*/
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 1em;
   align-items: flex-start;
+  padding: 40px 0px;
 }
 
 .post-card {
@@ -58,15 +93,14 @@
 }
 
 
-
 .mbid-style {
   font-size: 10px;
   text-align: start;
 }
 
 .button-style {
-  margin-top: 15px;
-  margin-right: 5px;
+  flex: 1;
+  margin: 0 5px;
   border: 1px solid rgba(255, 255, 255, .2);
 }
 
@@ -95,12 +129,8 @@
 }
 
 body {
-  /*margin: 0;*/
   width: auto;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  /*display: block;*/
-  margin: 0px;
+  margin: 0;
 }

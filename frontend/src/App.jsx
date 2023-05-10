@@ -21,7 +21,8 @@ const client = create({
     },
 });
 
-const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
+// const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
+const contractAddress = '0x641a7e16042de68c630fd490d8f4b60bbf201c02'
 
 function App() {
     useEffect(() => {
@@ -114,7 +115,6 @@ function App() {
                 )}
                 {viewState === 'view-posts' && address && (
                     <div>
-                        <h1>Posts</h1>
                         <div className="post-container">
                             {posts.map((post, index) => (
                                 <div key={index} className="post-card">
@@ -136,16 +136,15 @@ function App() {
                 )}
                 {viewState === 'create-post' && (
                     <div className="form-container">
-                        <h2>Create New Proposal</h2>
                         <input
-                            placeholder="Title"
+                            placeholder="Proposal Name"
                             onChange={(e) => setTitle(e.target.value)}
                             className="input-style"
                         />
                         <textarea
-                            placeholder="Content"
+                            placeholder="Proposal Details"
                             onChange={(e) => setContent(e.target.value)}
-                            className="input-style"
+                            className="textarea-style"
                         />
                         <button onClick={createPost} className="button-style">
                             Create New Proposal
