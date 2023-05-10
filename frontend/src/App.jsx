@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ethers } from 'ethers'
 import { create } from 'ipfs-http-client'
 import { Buffer } from 'buffer'
 import Blog from '../Blog.json'
 import { useAccount } from "wagmi";
 import './App.css'
+import Header from './components/Header.jsx';
+import ButtonContainer from './components/ButtonContainer.jsx';
+import Proposals from './components/Proposals.jsx';
+import CreateProposalForm from './components/CreateProposalForm.jsx';
 
 /* configure authorization for Infura and IPFS */
 const auth =
@@ -84,72 +87,15 @@ function App() {
     return (
         <div className="outer-container">
             <div className="inner-container">
-                <div className="header">
-                    <div>
-                        <h1>Modular Rollup Blog</h1>
-                        <p>
-                            This allows users to securely create and share blog posts on the
-                            blockchain without the need for a centralized server or
-                            authority.
-                        </p>
-                    </div>
-                    <div className="wallet-connect-heading">
-                        {<ConnectButton />}
-                    </div>
-                </div>
-                {address && (
-                    <div className="button-container">
-                        <button
-                            onClick={() => toggleView('view-posts')}
-                            className="button-style"
-                        >
-                            View Posts
-                        </button>
-                        <button
-                            onClick={() => toggleView('create-post')}
-                            className="button-style"
-                        >
-                            Create New Proposal
-                        </button>
-                    </div>
-                )}
-                {viewState === 'view-posts' && address && (
-                    <div>
-                        <div className="post-container">
-                            {posts.map((post, index) => (
-                                <div key={index} className="post-card">
-                                    <h2>
-                                        {post.id}. {post.title}
-                                    </h2>
-                                    <button
-                                        className="read-on-ipfs"
-                                        onClick={() =>
-                                            window.open(`https://infura-ipfs.io/ipfs/${post.content}`)
-                                        }
-                                    >
-                                        Read on IPFS
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                <Header />
+                <ButtonContainer address={address} toggleView={toggleView} />
+                {viewState === 'view-posts' && <Proposals posts={posts} address={address} />}
                 {viewState === 'create-post' && (
-                    <div className="form-container">
-                        <input
-                            placeholder="Proposal Name"
-                            onChange={(e) => setTitle(e.target.value)}
-                            className="input-style"
-                        />
-                        <textarea
-                            placeholder="Proposal Details"
-                            onChange={(e) => setContent(e.target.value)}
-                            className="textarea-style"
-                        />
-                        <button onClick={createPost} className="button-style">
-                            Create New Proposal
-                        </button>
-                    </div>
+                    <CreateProposalForm
+                        setTitle={setTitle}
+                        setContent={setContent}
+                        createPost={createPost}
+                    />
                 )}
             </div>
         </div>

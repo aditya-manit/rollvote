@@ -70,7 +70,7 @@ html, body {
 }
 
 
-.post-container {
+.proposal-container {
   margin: 0 auto;
   /*padding: 1em;*/
   display: grid;
@@ -80,14 +80,14 @@ html, body {
   padding: 40px 0px;
 }
 
-.post-card {
+.proposal-card {
   background-color: white;
   border-radius: 20px;
   padding: 1em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.post-card:hover {
+.proposal-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
