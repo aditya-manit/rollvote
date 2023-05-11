@@ -10,9 +10,7 @@ const fetchPreview = async (hash) => {
     try {
         const endpoint = `http://cors-proxy.kingsuper.services/?targetApi=https://infura-ipfs.io/ipfs/${hash}`
         const response = await axios.get(endpoint);
-        const text = response.data;
-        const previewText = text
-        return previewText
+        return response.data;
     } catch (error) {
         console.error('Error fetching content from IPFS:', error);
         return 'Error fetching content';
@@ -22,7 +20,7 @@ const fetchPreview = async (hash) => {
 
 
 
-const Proposals = ({ posts, address, showProposalPage, setShowProposalPage }) => {
+const Proposals = ({ proposals, address, showProposalPage, setShowProposalPage }) => {
 
     const [selectedProposal, setSelectedProposal] = useState({ title: '', content: '', id: '' });
 
@@ -36,11 +34,11 @@ const Proposals = ({ posts, address, showProposalPage, setShowProposalPage }) =>
     useEffect(() => {
         (async () => {
             const fetchedContents = await Promise.all(
-                posts.map(async (post) => await fetchPreview(post.content))
+                proposals.map(async (proposal) => await fetchPreview(proposal.content))
             );
             setContents(fetchedContents);
         })();
-    }, [posts]);
+    }, [proposals]);
 
 
     return (
@@ -48,15 +46,15 @@ const Proposals = ({ posts, address, showProposalPage, setShowProposalPage }) =>
             <div>
                 {!showProposalPage && (
                     <div className="proposal-container">
-                        {posts.map((post, index) => (
+                        {proposals.map((proposal, index) => (
                             <div key={index} className="proposal-card">
                                 <h2>
-                                    {post.id}. {post.title}
+                                    {proposal.id}. {proposal.title}
                                 </h2>
                                 <p>{contents[index]?.slice(0, 100)}.....</p>
                                 <button
                                     className="vote-button"
-                                    onClick={() => handleVoteClick(post.title, contents[index], post.id)}
+                                    onClick={() => handleVoteClick(proposal.title, contents[index], proposal.id)}
                                 >
                                     Vote
                                 </button>
@@ -76,5 +74,6 @@ const Proposals = ({ posts, address, showProposalPage, setShowProposalPage }) =>
     );
 
 };
+
 
 export default Proposals;

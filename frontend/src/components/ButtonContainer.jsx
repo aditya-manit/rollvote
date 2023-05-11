@@ -5,23 +5,22 @@ import '../App.css'
 
 const ButtonContainer = ({ address, toggleView, setShowProposalPage }) => {
 
-    const handleViewPostsClick = () => {
+    const handleViewProposalsClick = () => {
         setShowProposalPage(false);
-        toggleView('view-posts');
-
+        toggleView('view-proposals');
     };
 
     return (
         address && (
             <div className="button-container">
                 <button
-                    onClick={handleViewPostsClick}
+                    onClick={handleViewProposalsClick}
                     className="button-style"
                 >
-                    View Posts
+                    View Proposals
                 </button>
                 <button
-                    onClick={() => toggleView('create-post')}
+                    onClick={() => toggleView('create-proposal')}
                     className="button-style"
                 >
                     Create New Proposal

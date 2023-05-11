@@ -10,11 +10,9 @@ import ButtonContainer from './components/ButtonContainer.jsx';
 import Proposals from './components/Proposals.jsx';
 import CreateProposalForm from './components/CreateProposalForm.jsx';
 
-/* configure authorization for Infura and IPFS */
 const auth =
     'Basic ' + Buffer.from(import.meta.env.VITE_INFURA_ID + ':' + import.meta.env.VITE_INFURA_SECRET).toString('base64');
 
-/* create an IPFS client */
 const client = create({
     host: 'ipfs.infura.io',
     port: 5001,
@@ -24,26 +22,23 @@ const client = create({
     },
 });
 
-// const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
 const contractAddress = '0x641a7e16042de68c630fd490d8f4b60bbf201c02'
 
 function App() {
     useEffect(() => {
-        fetchPosts()
+        fetchProposals()
     }, [])
-    const [viewState, setViewState] = useState('view-posts')
-    const [posts, setPosts] = useState([])
+    const [viewState, setViewState] = useState('view-proposals')
+    const [proposals, setProposals] = useState([])
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const {address} = useAccount();
 
-    /* when the component loads, useEffect will call this function */
-    async function fetchPosts() {
+    async function fetchProposals() {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const contract = new ethers.Contract(contractAddress, Blog.abi, provider)
+        // todo: change it
         let data = await contract.fetchPosts()
-        /* once the data is returned from the network we map over it and */
-        /* transform the data into a more readable format  */
         data = data.map(d => ({
             content: d['content'],
             title: d['title'],
@@ -51,7 +46,6 @@ function App() {
             id: d['id'].toString(),
         }))
 
-        /* we then fetch the post content from IPFS and add it to the post objects */
         data = await Promise.all(data.map(async d => {
             const endpoint = `https://infura-ipfs.io/ipfs/${d.content}`
             const options = {
@@ -59,28 +53,28 @@ function App() {
             }
             const response = await fetch(endpoint, options)
             const value = await response.text()
-            d.postContent = value
+            d.proposalContent = value
             return d
         }))
 
-        setPosts(data)
+        setProposals(data)
     }
 
-    async function createPost() {
+    async function createProposal() {
         const added = await client.add(content)
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
 
         const contract = new ethers.Contract(contractAddress, Blog.abi, signer)
-        const tx = await contract.createPost(title, added.path)
+        const tx = await contract.createProposal(title, added.path)
         await tx.wait()
-        setViewState('view-posts')
+        setViewState('view-proposals')
     }
 
     function toggleView(value) {
         setViewState(value)
-        if (value === 'view-posts') {
-            fetchPosts()
+        if (value === 'view-proposals') {
+            fetchProposals()
         }
     }
 
@@ -95,24 +89,25 @@ function App() {
                     toggleView={toggleView}
                     setShowProposalPage={setShowProposalPage}
                 />
-                {viewState === 'view-posts' && (
+                {viewState === 'view-proposals' && (
                     <Proposals
-                        posts={posts}
+                        proposals={proposals}
                         address={address}
                         showProposalPage={showProposalPage}
                         setShowProposalPage={setShowProposalPage}
                     />
                 )}
-                {viewState === 'create-post' && (
+                {viewState === 'create-proposal' && (
                     <CreateProposalForm
                         setTitle={setTitle}
                         setContent={setContent}
-                        createPost={createPost}
+                        createProposal={createProposal}
                     />
                 )}
             </div>
         </div>
     );
+
 
 
 }
