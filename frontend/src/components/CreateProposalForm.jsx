@@ -1,4 +1,7 @@
 import React from 'react';
+import './css/CreateProposalForm.css';
+import '../App.css'
+
 
 const CreateProposalForm = ({ setTitle, setContent, createPost }) => {
     return (

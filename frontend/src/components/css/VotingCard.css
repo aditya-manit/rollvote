@@ -1,0 +1,20 @@
+.vote-options-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2); /* adding a dark border line */
+    display: flex;
+    flex-direction: column;
+}
+
+.vote-options-card div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.vote-options-card input[type='radio'] {
+    margin-right: 10px;
+}

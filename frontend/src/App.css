@@ -1,5 +1,4 @@
 .outer-container {
-  /*width: auto;*/
   height: 100vh;
   padding: 20px 140px;
   display: flex;
@@ -25,118 +24,12 @@ html, body {
   padding: 0;
 }
 
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 40px 0px;
-}
-
-.input-style {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  height: 40px;
-  box-sizing: border-box;
-  border-radius: 40px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-}
-
-.input-style:focus {
-  outline: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.textarea-style {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  height: 150px;
-  box-sizing: border-box;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-  resize: vertical;
-}
-
-.textarea-style:focus {
-  outline: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-.proposal-container {
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, calc(25% - 1em))); /* 25% for 4 cards per row */
-  grid-auto-rows: minmax(100px, auto); /* setting a minimum height for the cards */
-  grid-gap: 1em;
-  align-items: stretch; /* making all cards have the same height */
-  padding: 40px 0px;
-}
-
-.proposal-card {
-  background-color: white;
-  border-radius: 20px;
-  padding: 1em;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex; /* making the card a flex container */
-  flex-direction: column; /* arranging content vertically */
-  justify-content: space-between; /* distributing space evenly between content */
-  border: 1px solid rgba(0, 0, 0, 0.2); /* adding a dark border line */
-}
-
-
-
-.proposal-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-
-.mbid-style {
-  font-size: 10px;
-  text-align: start;
-}
-
 .button-style {
   flex: 1;
   margin: 0 5px;
-  border: 1px solid rgba(255, 255, 255, .2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.button-container {
-  margin-top: 15px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: right;
-}
-
-
-.wallet-connect-heading {
-  justify-content: right;
-  text-align: right;
-}
-
-.read-on-ipfs {
-  font-size: 16px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-}
-
-body {
-  width: auto;
-  min-width: 320px;
-  min-height: 100vh;
-  margin: 0;
+.vote-button {
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }

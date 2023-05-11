@@ -1,0 +1,11 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.wallet-connect-heading {
+    justify-content: right;
+    text-align: right;
+}

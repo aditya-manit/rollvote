@@ -1,0 +1,68 @@
+.vote-stats-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2); /* adding a dark border line */
+}
+
+.vote-stats-card .table-wrapper {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.vote-stats-card table {
+    width: 100%; /* Fill the parent container */
+    border-collapse: collapse; /* Remove the space between the borders */
+}
+
+.vote-stats-card th,
+.vote-stats-card td {
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Border for the table cells */
+    padding: 10px; /* Space between the cell content and the cell border */
+    text-align: left; /* Align the text to the left */
+}
+
+.vote-stats-card th {
+    background-color: rgba(0, 0, 0, 0.1); /* Light gray background for the headers */
+}
+
+.vote-stats-card tr:hover {
+    background-color: rgba(0, 0, 0, 0.04); /* Light gray background for the headers */
+}
+.vote-stats-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2); /* adding a dark border line */
+}
+
+.vote-stats-card .table-wrapper {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.vote-stats-card table {
+    width: 100%; /* Fill the parent container */
+    border-collapse: collapse; /* Remove the space between the borders */
+}
+
+.vote-stats-card th,
+.vote-stats-card td {
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Border for the table cells */
+    padding: 10px; /* Space between the cell content and the cell border */
+    text-align: left; /* Align the text to the left */
+}
+
+.vote-stats-card th {
+    background-color: rgba(0, 0, 0, 0.1); /* Light gray background for the headers */
+}
+
+.vote-stats-card tr:hover {
+    background-color: rgba(0, 0, 0, 0.04); /* Light gray background for the headers */
+}

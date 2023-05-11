@@ -1,11 +1,21 @@
 import React from 'react';
 
-const ButtonContainer = ({ address, toggleView }) => {
+import './css/ButtonContainer.css';
+import '../App.css'
+
+const ButtonContainer = ({ address, toggleView, setShowProposalPage }) => {
+
+    const handleViewPostsClick = () => {
+        setShowProposalPage(false);
+        toggleView('view-posts');
+
+    };
+
     return (
         address && (
             <div className="button-container">
                 <button
-                    onClick={() => toggleView('view-posts')}
+                    onClick={handleViewPostsClick}
                     className="button-style"
                 >
                     View Posts

@@ -1,0 +1,9 @@
+.proposal-page {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0;
+}
+
+.proposal-page-right {
+    flex-basis: 30%;
+}

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
-import { ethers } from 'ethers'
-import { create } from 'ipfs-http-client'
-import { Buffer } from 'buffer'
+import {useState, useEffect} from 'react'
+import {ethers} from 'ethers'
+import {create} from 'ipfs-http-client'
+import {Buffer} from 'buffer'
 import Blog from '../Blog.json'
-import { useAccount } from "wagmi";
+import {useAccount} from "wagmi";
 import './App.css'
 import Header from './components/Header.jsx';
 import ButtonContainer from './components/ButtonContainer.jsx';
@@ -35,7 +35,7 @@ function App() {
     const [posts, setPosts] = useState([])
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
-    const { address } = useAccount();
+    const {address} = useAccount();
 
     /* when the component loads, useEffect will call this function */
     async function fetchPosts() {
@@ -84,12 +84,25 @@ function App() {
         }
     }
 
+    const [showProposalPage, setShowProposalPage] = useState(false);
+
     return (
         <div className="outer-container">
             <div className="inner-container">
                 <Header />
-                <ButtonContainer address={address} toggleView={toggleView} />
-                {viewState === 'view-posts' && <Proposals posts={posts} address={address} />}
+                <ButtonContainer
+                    address={address}
+                    toggleView={toggleView}
+                    setShowProposalPage={setShowProposalPage}
+                />
+                {viewState === 'view-posts' && (
+                    <Proposals
+                        posts={posts}
+                        address={address}
+                        showProposalPage={showProposalPage}
+                        setShowProposalPage={setShowProposalPage}
+                    />
+                )}
                 {viewState === 'create-post' && (
                     <CreateProposalForm
                         setTitle={setTitle}
@@ -100,6 +113,7 @@ function App() {
             </div>
         </div>
     );
+
 
 }
 
