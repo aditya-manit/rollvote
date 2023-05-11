@@ -2,7 +2,9 @@ import {useState, useEffect} from 'react'
 import {ethers} from 'ethers'
 import {create} from 'ipfs-http-client'
 import {Buffer} from 'buffer'
+import axios from 'axios';
 import Blog from '../Blog.json'
+import Proposal from '../Proposal.json'
 import {useAccount} from "wagmi";
 import './App.css'
 import Header from './components/Header.jsx';
@@ -22,7 +24,7 @@ const client = create({
     },
 });
 
-const contractAddress = '0x641a7e16042de68c630fd490d8f4b60bbf201c02'
+const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
 
 function App() {
     useEffect(() => {
@@ -31,41 +33,47 @@ function App() {
     const [viewState, setViewState] = useState('view-proposals')
     const [proposals, setProposals] = useState([])
     const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
+    const [description, setDescription] = useState('')
     const {address} = useAccount();
 
     async function fetchProposals() {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const contract = new ethers.Contract(contractAddress, Blog.abi, provider)
-        // todo: change it
-        let data = await contract.fetchPosts()
+        const contract = new ethers.Contract(contractAddress, Proposal.abi, provider)
+        let data = await contract.fetchAllProposals()
+
         data = data.map(d => ({
-            content: d['content'],
-            title: d['title'],
-            published: d['published'],
             id: d['id'].toString(),
+            title: d['title'],
+            description: d['description'],
+            yesVotes: d['yesVotes'].toString(),
+            noVotes: d['noVotes'].toString(),
+            abstainVotes: d['abstainVotes'].toString(),
         }))
 
         data = await Promise.all(data.map(async d => {
-            const endpoint = `https://infura-ipfs.io/ipfs/${d.content}`
-            const options = {
-                mode: 'no-cors',
+
+            try {
+                const endpoint = `http://cors-proxy.kingsuper.services/?targetApi=https://infura-ipfs.io/ipfs/${d.description}`
+                const response = await axios.get(endpoint);
+                d.proposalDescription = response.data
+                return d
+            } catch (error) {
+                console.error('Error fetching description from IPFS:', error);
+                d.proposalDescription = 'Error fetching description'
+                return d
             }
-            const response = await fetch(endpoint, options)
-            const value = await response.text()
-            d.proposalContent = value
-            return d
         }))
 
+        console.log('data', data)
         setProposals(data)
     }
 
     async function createProposal() {
-        const added = await client.add(content)
+        const added = await client.add(description)
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
-
-        const contract = new ethers.Contract(contractAddress, Blog.abi, signer)
+        console.log('added.path: ', added.path)
+        const contract = new ethers.Contract(contractAddress, Proposal.abi, signer)
         const tx = await contract.createProposal(title, added.path)
         await tx.wait()
         setViewState('view-proposals')
@@ -83,7 +91,7 @@ function App() {
     return (
         <div className="outer-container">
             <div className="inner-container">
-                <Header />
+                <Header/>
                 <ButtonContainer
                     address={address}
                     toggleView={toggleView}
@@ -100,15 +108,13 @@ function App() {
                 {viewState === 'create-proposal' && (
                     <CreateProposalForm
                         setTitle={setTitle}
-                        setContent={setContent}
+                        setDescription={setDescription}
                         createProposal={createProposal}
                     />
                 )}
             </div>
         </div>
     );
-
-
 
 }
 

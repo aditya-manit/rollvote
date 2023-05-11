@@ -2,7 +2,7 @@ import React from 'react';
 import './css/CreateProposalForm.css';
 import '../App.css'
 
-const CreateProposalForm = ({ setTitle, setContent, createProposal }) => {
+const CreateProposalForm = ({ setTitle, setDescription, createProposal }) => {
     return (
         <div className="form-container">
             <input
@@ -12,7 +12,7 @@ const CreateProposalForm = ({ setTitle, setContent, createProposal }) => {
             />
             <textarea
                 placeholder="Proposal Details"
-                onChange={(e) => setContent(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
                 className="textarea-style"
             />
             <button onClick={createProposal} className="button-style">

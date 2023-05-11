@@ -1,11 +1,11 @@
 import React from 'react';
 import './css/ProposalDetails.css'
 
-const ProposalDetails = ({ title, content, id }) => {
+const ProposalDetails = ({ title, proposalDescription, id }) => {
     return (
         <div className="proposal-page-left">
             <h2>{id}. {title}</h2>
-            <p>{content}</p>
+            <p>{proposalDescription}</p>
         </div>
     );
 };

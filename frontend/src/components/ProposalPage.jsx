@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './css/ProposalPage.css';
 import '../App.css'
 import ProposalDetails from './ProposalDetails';
@@ -6,7 +6,7 @@ import ProposalStatsCard from './ProposalStatsCard';
 import VotingCard from './VotingCard';
 
 
-const ProposalPage = ({ title, content, id }) => {
+const ProposalPage = ({title, proposalDescription, id, yesVotes, noVotes, abstainVotes}) => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     const handleVoteOptionChange = (event) => {
@@ -20,10 +20,14 @@ const ProposalPage = ({ title, content, id }) => {
 
     return (
         <div className="proposal-page">
-            <ProposalDetails title={title} content={content} id={id} />
+            <ProposalDetails title={title} proposalDescription={proposalDescription} id={id}/>
             <div className="proposal-page-right">
-                <ProposalStatsCard />
-                <VotingCard />
+                <ProposalStatsCard
+                    yesVotes={yesVotes}
+                    noVotes={noVotes}
+                    abstainVotes={abstainVotes}
+                />
+                <VotingCard/>
             </div>
         </div>
     );

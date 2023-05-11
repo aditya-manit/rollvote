@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/ProposalStatsCard.css'
 
-const ProposalStatsCard = () => {
+const ProposalStatsCard = ({yesVotes, noVotes, abstainVotes}) => {
     return (
         <div className="vote-stats-card">
             <h3>Voting Stats</h3>
@@ -16,15 +16,15 @@ const ProposalStatsCard = () => {
                     <tbody>
                     <tr>
                         <td>Yes</td>
-                        <td>Placeholder</td>
+                        <td>{yesVotes}</td>
                     </tr>
                     <tr>
                         <td>No</td>
-                        <td>Placeholder</td>
+                        <td>{noVotes}</td>
                     </tr>
                     <tr>
                         <td>Abstain</td>
-                        <td>Placeholder</td>
+                        <td>{abstainVotes}</td>
                     </tr>
                     </tbody>
                 </table>

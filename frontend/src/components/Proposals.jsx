@@ -1,45 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import ProposalPage from './ProposalPage.jsx';
 import './css/Proposals.css';
 import '../App.css'
 
 
+const Proposals = ({proposals, address, showProposalPage, setShowProposalPage}) => {
 
-const fetchPreview = async (hash) => {
-    try {
-        const endpoint = `http://cors-proxy.kingsuper.services/?targetApi=https://infura-ipfs.io/ipfs/${hash}`
-        const response = await axios.get(endpoint);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching content from IPFS:', error);
-        return 'Error fetching content';
-    }
-};
+    const [selectedProposal, setSelectedProposal] = useState({title: '', proposalDescription: '', id: '', yesVotes: '',noVotes: '', abstainVotes: '' });
 
-
-
-
-const Proposals = ({ proposals, address, showProposalPage, setShowProposalPage }) => {
-
-    const [selectedProposal, setSelectedProposal] = useState({ title: '', content: '', id: '' });
-
-    const handleVoteClick = (title, content, id) => {
-        setSelectedProposal({ title, content, id });
+    const handleVoteClick = (title, proposalDescription, id, yesVotes, noVotes, abstainVotes) => {
+        setSelectedProposal({title, proposalDescription, id, yesVotes, noVotes, abstainVotes});
         setShowProposalPage(true);
     };
-
-    const [contents, setContents] = useState([]);
-
-    useEffect(() => {
-        (async () => {
-            const fetchedContents = await Promise.all(
-                proposals.map(async (proposal) => await fetchPreview(proposal.content))
-            );
-            setContents(fetchedContents);
-        })();
-    }, [proposals]);
-
 
     return (
         address && (
@@ -48,13 +21,13 @@ const Proposals = ({ proposals, address, showProposalPage, setShowProposalPage }
                     <div className="proposal-container">
                         {proposals.map((proposal, index) => (
                             <div key={index} className="proposal-card">
-                                <h2>
+                                <h4>
                                     {proposal.id}. {proposal.title}
-                                </h2>
-                                <p>{contents[index]?.slice(0, 100)}.....</p>
+                                </h4>
+                                <p>{proposal.proposalDescription.slice(0, 100)}.....</p>
                                 <button
                                     className="vote-button"
-                                    onClick={() => handleVoteClick(proposal.title, contents[index], proposal.id)}
+                                    onClick={() => handleVoteClick(proposal.title, proposal.proposalDescription, proposal.id, proposal.yesVotes, proposal.noVotes, proposal.abstainVotes)}
                                 >
                                     Vote
                                 </button>
@@ -65,14 +38,16 @@ const Proposals = ({ proposals, address, showProposalPage, setShowProposalPage }
                 {showProposalPage && (
                     <ProposalPage
                         title={selectedProposal.title}
-                        content={selectedProposal.content}
+                        proposalDescription={selectedProposal.proposalDescription}
                         id={selectedProposal.id}
+                        yesVotes={selectedProposal.yesVotes}
+                        noVotes={selectedProposal.noVotes}
+                        abstainVotes={selectedProposal.abstainVotes}
                     />
                 )}
             </div>
         )
     );
-
 };
 
 
