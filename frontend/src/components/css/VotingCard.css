@@ -4,17 +4,33 @@
     padding: 1em;
     margin-bottom: 1em;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.2); /* adding a dark border line */
+    border: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
 }
 
-.vote-options-card div {
+.option-container {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    cursor: pointer; /* Add pointer cursor on hover over the box */
+}
+
+.option-container:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .vote-options-card input[type='radio'] {
     margin-right: 10px;
+    height: 16px;
+    width: 16px;
+}
+
+.vote-options-card input[type='radio']:checked {
+    transform: scale(1.25);
+    transition: transform 0.3s ease-in-out;
 }

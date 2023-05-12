@@ -16,21 +16,22 @@ const VotingCard = () => {
     return (
         <div className="vote-options-card">
             <h3>Vote Options</h3>
-            <div>
+            <label htmlFor="yes" className="option-container">
                 <input type="radio" id="yes" name="vote" value="yes" onChange={handleVoteOptionChange} />
-                <label htmlFor="yes">Yes</label>
-            </div>
-            <div>
+                Yes
+            </label>
+            <label htmlFor="no" className="option-container">
                 <input type="radio" id="no" name="vote" value="no" onChange={handleVoteOptionChange} />
-                <label htmlFor="no">No</label>
-            </div>
-            <div>
+                No
+            </label>
+            <label htmlFor="abstain" className="option-container">
                 <input type="radio" id="abstain" name="vote" value="abstain" onChange={handleVoteOptionChange} />
-                <label htmlFor="abstain">Abstain</label>
-            </div>
+                Abstain
+            </label>
             <button className="vote-button" onClick={handleVote}>Vote</button>
         </div>
     );
+
 };
 
 export default VotingCard;
