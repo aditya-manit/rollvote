@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import './css/VotingCard.css'
 
-const VotingCard = () => {
+const VotingCard = ({id, voteOnProposal}) => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     const handleVoteOptionChange = (event) => {
         setSelectedOption(event.target.value);
-    };
-
-    const handleVote = () => {
-        // Add your voting logic here
-        console.log(`Voted for: ${selectedOption}`);
     };
 
     return (
@@ -28,7 +23,7 @@ const VotingCard = () => {
                 <input type="radio" id="abstain" name="vote" value="abstain" onChange={handleVoteOptionChange} />
                 Abstain
             </label>
-            <button className="vote-button" onClick={handleVote}>Vote</button>
+            <button className="vote-button" onClick={() => voteOnProposal(id, selectedOption)}>Vote</button>
         </div>
     );
 

@@ -5,12 +5,12 @@ import './css/Proposals.css';
 import '../App.css'
 
 
-const Proposals = ({proposals, address, showProposalPage, setShowProposalPage}) => {
+const Proposals = ({proposals, address, showProposalPage, setShowProposalPage, voteOnProposal}) => {
 
-    const [selectedProposal, setSelectedProposal] = useState({title: '', proposalDescription: '', id: '', yesVotes: '',noVotes: '', abstainVotes: '' });
+    const [selectedProposal, setSelectedProposal] = useState({title: '', proposalDescription: '', id: '', yesVotes: '',noVotes: '', abstainVotes: '', userVote: '' });
 
-    const handleVoteClick = (title, proposalDescription, id, yesVotes, noVotes, abstainVotes) => {
-        setSelectedProposal({title, proposalDescription, id, yesVotes, noVotes, abstainVotes});
+    const handleVoteClick = (title, proposalDescription, id, yesVotes, noVotes, abstainVotes, userVote) => {
+        setSelectedProposal({title, proposalDescription, id, yesVotes, noVotes, abstainVotes, userVote});
         setShowProposalPage(true);
     };
 
@@ -27,7 +27,7 @@ const Proposals = ({proposals, address, showProposalPage, setShowProposalPage}) 
                                 <p>{proposal.proposalDescription.slice(0, 100)}.....</p>
                                 <button
                                     className="vote-button"
-                                    onClick={() => handleVoteClick(proposal.title, proposal.proposalDescription, proposal.id, proposal.yesVotes, proposal.noVotes, proposal.abstainVotes)}
+                                    onClick={() => handleVoteClick(proposal.title, proposal.proposalDescription, proposal.id, proposal.yesVotes, proposal.noVotes, proposal.abstainVotes, proposal.userVote)}
                                 >
                                     Vote
                                 </button>
@@ -43,6 +43,8 @@ const Proposals = ({proposals, address, showProposalPage, setShowProposalPage}) 
                         yesVotes={selectedProposal.yesVotes}
                         noVotes={selectedProposal.noVotes}
                         abstainVotes={selectedProposal.abstainVotes}
+                        voteOnProposal={voteOnProposal}
+                        userVote={selectedProposal.userVote}
                     />
                 )}
             </div>

@@ -1,0 +1,26 @@
+.your-vote-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.vote-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* Center the text horizontally */
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    flex-grow: 1;  /* Make the vote-display fill the remaining space */
+    text-transform: uppercase;  /* Make the text uppercase */
+    font-family: monospace;  /* Set the font to monospace */
+    font-size: 1.8em;  /* Increase the font size */
+}
+
+.vote-display:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}

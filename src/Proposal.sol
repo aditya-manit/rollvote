@@ -17,7 +17,8 @@ contract Proposal {
     }
 
     mapping(uint => Proposal) private idToProposal;
-    mapping(address => bool) private hasVoted;
+    // Mapping from proposal ID to mapping from voter address to vote type
+    mapping(uint => mapping(address => string)) private votesCast;
 
     event ProposalCreated(uint id, string title, string description);
     event VoteCast(uint id, string voteType, uint count);
@@ -37,7 +38,8 @@ contract Proposal {
     }
 
     function vote(uint proposalId, string memory voteType) public {
-        require(!hasVoted[msg.sender], "This address has already voted.");
+        // Check if this address has already voted on this proposal
+        require(bytes(votesCast[proposalId][msg.sender]).length == 0, "This address has already voted on this proposal.");
 
         Proposal storage proposal = idToProposal[proposalId];
 
@@ -51,8 +53,16 @@ contract Proposal {
             revert("Invalid vote type.");
         }
 
-        hasVoted[msg.sender] = true;
+        votesCast[proposalId][msg.sender] = voteType;
         emit VoteCast(proposalId, voteType, 1);
+    }
+
+    function getVote(uint proposalId, address voter) public view returns (string memory) {
+        if(bytes(votesCast[proposalId][voter]).length == 0) {
+            return "Not Voted";
+        } else {
+            return votesCast[proposalId][voter];
+        }
     }
 
     function fetchProposal(uint proposalId) public view returns(Proposal memory){

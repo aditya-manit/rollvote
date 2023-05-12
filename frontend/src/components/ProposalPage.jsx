@@ -4,9 +4,10 @@ import '../App.css'
 import ProposalDetails from './ProposalDetails';
 import ProposalStatsCard from './ProposalStatsCard';
 import VotingCard from './VotingCard';
+import YourVote from "./YourVote.jsx";
 
 
-const ProposalPage = ({title, proposalDescription, id, yesVotes, noVotes, abstainVotes}) => {
+const ProposalPage = ({title, proposalDescription, id, yesVotes, noVotes, abstainVotes, voteOnProposal, userVote}) => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     const handleVoteOptionChange = (event) => {
@@ -27,7 +28,14 @@ const ProposalPage = ({title, proposalDescription, id, yesVotes, noVotes, abstai
                     noVotes={noVotes}
                     abstainVotes={abstainVotes}
                 />
-                <VotingCard/>
+                <VotingCard
+                    id={id}
+                    voteOnProposal={voteOnProposal}
+                />
+                <YourVote
+                    userVote={userVote}
+                />
+
             </div>
         </div>
     );
