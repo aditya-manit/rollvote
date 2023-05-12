@@ -69,6 +69,7 @@ function App() {
     }
 
     async function createProposal() {
+        console.log(`creating proposal with title ${title} and description ${description}`)
         const added = await client.add(description)
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
@@ -107,7 +108,9 @@ function App() {
                 )}
                 {viewState === 'create-proposal' && (
                     <CreateProposalForm
+                        title={title}
                         setTitle={setTitle}
+                        description={description}
                         setDescription={setDescription}
                         createProposal={createProposal}
                     />

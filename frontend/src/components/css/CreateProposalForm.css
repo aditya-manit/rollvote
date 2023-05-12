@@ -1,9 +1,21 @@
 .form-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row; /* Change this to row to have side by side elements */
+    align-items: flex-start; /* Align items at the start of the container */
+    justify-content: space-between; /* Add some space between the elements */
     width: 100%;
     padding: 40px 0px;
+}
+
+
+.input-container, .preview-container {
+    width: 48%; /* Set width to less than 50% to account for any padding/margin */
+    background-color: white;
+    border-radius: 20px;
+    padding: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2); /* adding a dark border line */
+    margin-right: 20px;
 }
 
 .input-style {
@@ -23,20 +35,9 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.textarea-style {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    height: 150px;
-    box-sizing: border-box;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-    resize: vertical;
+
+.react-mde .mde-header,
+.react-mde .mde-text textarea {
+    border-radius: 10px !important;
 }
 
-.textarea-style:focus {
-    outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
