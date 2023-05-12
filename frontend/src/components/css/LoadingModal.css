@@ -1,0 +1,60 @@
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid black;
+    width: 70%;
+    text-align: center;
+    border-radius: 10px;
+    justify-content: flex-start;
+    align-items: center; /* this will align items vertically at the center */
+
+}
+
+.transactionStatus {
+    position: relative;
+    margin: 20px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* Center the text horizontally */
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    flex-grow: 1;  /* Make the vote-display fill the remaining space */
+    text-transform: uppercase;  /* Make the text uppercase */
+    font-family: monospace;  /* Set the font to monospace */
+    font-size: 1.8em;  /* Increase the font size */
+}
+
+.transactionStatus:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+.close-modal-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 10px;
+    cursor: pointer;
+}

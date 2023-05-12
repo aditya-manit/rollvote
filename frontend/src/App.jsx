@@ -11,6 +11,7 @@ import Header from './components/Header.jsx';
 import ButtonContainer from './components/ButtonContainer.jsx';
 import Proposals from './components/Proposals.jsx';
 import CreateProposalForm from './components/CreateProposalForm.jsx';
+import LoadingModal from "./components/LoadingModal.jsx";
 
 const auth =
     'Basic ' + Buffer.from(import.meta.env.VITE_INFURA_ID + ':' + import.meta.env.VITE_INFURA_SECRET).toString('base64');
@@ -35,6 +36,10 @@ function App() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const {address} = useAccount();
+    const [isLoading, setIsLoading] = useState(false);
+    const [transactionStatus, setTransactionStatus] = useState('');
+
+
 
     async function fetchProposals() {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -71,27 +76,65 @@ function App() {
     }
 
     async function createProposal() {
-        console.log(`creating proposal with title ${title} and description ${description}`)
-        const added = await client.add(description)
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner()
-        console.log('added.path: ', added.path)
-        const contract = new ethers.Contract(contractAddress, Proposal.abi, signer)
-        const tx = await contract.createProposal(title, added.path)
-        await tx.wait()
-        setViewState('view-proposals')
+        try {
+            console.log(`creating proposal with title ${title} and description ${description}`)
+            const added = await client.add(description)
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner()
+            console.log('added.path: ', added.path)
+            const contract = new ethers.Contract(contractAddress, Proposal.abi, signer)
+
+            setIsLoading(true); // Show the loading modal
+            setTransactionStatus('Confirm the transaction in metamask.....'); // Set status message
+
+            const tx = await contract.createProposal(title, added.path)
+            console.log(`Transaction hash: ${tx.hash}`)
+
+            setTransactionStatus(`Waiting for transaction ${tx.hash} to be included in a block.....`); // Set status message
+
+            const receipt = await tx.wait()
+            console.log(`Transaction ${tx.hash} got included in block ${receipt.blockNumber}`)
+
+            setTransactionStatus('Transaction successful!'); // Set success message
+            setViewState('view-proposals')
+        } catch (error) {
+            setTransactionStatus('Transaction failed. Please try again.'); // Set error message
+            console.error(`Error creating proposal: ${error}`)
+        }
     }
 
 
 
+
     async function voteOnProposal(proposalId, voteOption) {
-        console.log(`Voting on proposal with id ${proposalId} and vote option ${voteOption}`)
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner()
-        const contract = new ethers.Contract(contractAddress, Proposal.abi, signer)
-        const tx = await contract.vote(proposalId, voteOption)
-        await tx.wait()
-        setViewState('view-proposals')
+        try {
+            console.log(`Voting on proposal with id ${proposalId} and vote option ${voteOption}`)
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner()
+            const contract = new ethers.Contract(contractAddress, Proposal.abi, signer)
+
+            setIsLoading(true); // Show the loading modal
+            setTransactionStatus('Confirm the transaction in metamask.....'); // Set status message
+
+            const tx = await contract.vote(proposalId, voteOption)
+            console.log(`Transaction hash: ${tx.hash}`)
+
+            setTransactionStatus(`Waiting for transaction ${tx.hash} to be included in a block.....`); // Set status message
+
+            const receipt = await tx.wait()
+            console.log(`Transaction ${tx.hash} got included in block ${receipt.blockNumber}`)
+
+            setTransactionStatus('Transaction successful!'); // Set success message
+            setViewState('view-proposals')
+        } catch (error) {
+            let errorMessage = error.message;
+            const matches = errorMessage.match(/desc = (.+?)\./);
+            if (matches) {
+                errorMessage = matches[1];  // Get the matched group
+            }
+            setTransactionStatus(`Transaction failed: ${errorMessage}`); // Set error message
+            console.error(`Error voting on proposal: ${error}`)
+        }
     }
 
     function toggleView(value) {
@@ -130,9 +173,15 @@ function App() {
                         createProposal={createProposal}
                     />
                 )}
+                {isLoading && <LoadingModal
+                    transactionStatus={transactionStatus}
+                    setIsLoading={setIsLoading}
+
+                />}
             </div>
         </div>
     );
+
 
 }
 
