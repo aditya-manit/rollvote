@@ -12,20 +12,22 @@ import {
 import { publicProvider } from 'wagmi/providers/public';
 import { injectedWallet, metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+
 
 /* create configuration for Ethermint testnet */
 const ethermint = {
     id: 9000,
-    name: 'Ethermint',
+    name: 'KingSuper Ethermint Celestia Rollup',
     network: 'kingsuper_9000-1',
     nativeCurrency: {
         decimals: 18,
-        name: 'Ethermint',
-        symbol: 'CTE',
+        name: 'KingSuper',
+        symbol: 'KS',
     },
     rpcUrls: {
         default: {
-            http: ['http://65.109.160.193:8545/'],
+            http: ['https://ethermint-celestia-rollup.kingsuper.services'],
         },
     },
     testnet: true,
@@ -35,7 +37,12 @@ const ethermint = {
 const { chains, provider } = configureChains(
     // [chain.localhost, ethermint],
     [ethermint],
-    [publicProvider()]
+    [
+        jsonRpcProvider({
+            rpc: chain => ({ http: chain.rpcUrls.default.http[0] }),
+        }),
+    ]
+    // [publicProvider()]
 );
 
 const connectors = connectorsForWallets([

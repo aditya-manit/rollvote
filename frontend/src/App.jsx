@@ -12,6 +12,8 @@ import ButtonContainer from './components/ButtonContainer.jsx';
 import Proposals from './components/Proposals.jsx';
 import CreateProposalForm from './components/CreateProposalForm.jsx';
 import LoadingModal from "./components/LoadingModal.jsx";
+import Onboarding from "./components/Onboarding.jsx";
+import Footer from "./components/Footer.jsx";
 
 const auth =
     'Basic ' + Buffer.from(import.meta.env.VITE_INFURA_ID + ':' + import.meta.env.VITE_INFURA_SECRET).toString('base64');
@@ -58,7 +60,7 @@ function App() {
         data = await Promise.all(data.map(async d => {
 
             try {
-                const endpoint = `http://cors-proxy.kingsuper.services/?targetApi=https://infura-ipfs.io/ipfs/${d.description}`
+                const endpoint = `https://cors-proxy.kingsuper.services/?targetApi=https://infura-ipfs.io/ipfs/${d.description}`
                 const response = await axios.get(endpoint);
                 d.proposalDescription = response.data
                 d.userVote = await contract.getVote(parseInt(d.id), address)
@@ -74,7 +76,6 @@ function App() {
         console.log('data', data)
         setProposals(data)
     }
-
     async function createProposal() {
         try {
             console.log(`creating proposal with title ${title} and description ${description}`)
@@ -102,10 +103,6 @@ function App() {
             console.error(`Error creating proposal: ${error}`)
         }
     }
-
-
-
-
     async function voteOnProposal(proposalId, voteOption) {
         try {
             console.log(`Voting on proposal with id ${proposalId} and vote option ${voteOption}`)
@@ -155,6 +152,9 @@ function App() {
                     toggleView={toggleView}
                     setShowProposalPage={setShowProposalPage}
                 />
+                <Onboarding
+                    address={address}
+                />
                 {viewState === 'view-proposals' && (
                     <Proposals
                         proposals={proposals}
@@ -166,6 +166,7 @@ function App() {
                 )}
                 {viewState === 'create-proposal' && (
                     <CreateProposalForm
+                        address={address}
                         title={title}
                         setTitle={setTitle}
                         description={description}
@@ -176,8 +177,9 @@ function App() {
                 {isLoading && <LoadingModal
                     transactionStatus={transactionStatus}
                     setIsLoading={setIsLoading}
-
                 />}
+                <Footer
+                />
             </div>
         </div>
     );

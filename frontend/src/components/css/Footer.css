@@ -1,0 +1,18 @@
+.footer {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    padding: 5px 10px; /* Add more horizontal padding for pill shape */
+    font-size: 14px;
+    background-color: white;
+    border-radius: 50px; /* Increase border-radius for pill shape */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: black; /* Change text color to black */
+    font-family: 'Courier New', monospace; /* Change font to monospace */
+    border: 1px solid rgba(0, 0, 0, 0.2); /* adding a dark border line */
+}
+
+.footer a {
+    color: black; /* Change hyperlink color to black */
+    text-decoration: none; /* Optional, to remove the underline */
+}

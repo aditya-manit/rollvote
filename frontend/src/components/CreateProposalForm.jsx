@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './css/CreateProposalForm.css';
 import '../App.css';
 import ReactMde from 'react-mde';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import ReactMarkdown from 'react-markdown';
 
-const CreateProposalForm = ({ title, setTitle, description, setDescription, createProposal }) => {
+const CreateProposalForm = ({address, title, setTitle, description, setDescription, createProposal}) => {
     const [selectedTab, setSelectedTab] = useState('write');
 
     return (
-        <div className="form-container">
+        address && (<div className="form-container">
             <div className="input-container">
                 <input
                     placeholder="Proposal Name"
@@ -22,7 +22,7 @@ const CreateProposalForm = ({ title, setTitle, description, setDescription, crea
                     selectedTab={selectedTab}
                     onTabChange={setSelectedTab}
                     generateMarkdownPreview={markdown =>
-                        Promise.resolve(<ReactMarkdown children={markdown} />)
+                        Promise.resolve(<ReactMarkdown children={markdown}/>)
                     }
                 />
                 <button onClick={createProposal} className="button-style">
@@ -33,13 +33,15 @@ const CreateProposalForm = ({ title, setTitle, description, setDescription, crea
                 {(title || description) ? (
                     <>
                         {title && <h1>{title}</h1>}
-                        {description && <ReactMarkdown children={description} />}
+                        {description && <ReactMarkdown children={description}/>}
                     </>
                 ) : (
-                    <p><center>Proposal Preview will be displayed here.....</center></p>
+                    <p>
+                        <center>Proposal Preview will be displayed here.....</center>
+                    </p>
                 )}
             </div>
-        </div>
+        </div>)
     );
 };
 
