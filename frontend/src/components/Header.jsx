@@ -8,9 +8,7 @@ const Header = () => {
             <div>
                 <h1>Celestia Rollup Voting App</h1>
                 <p>
-                    This allows users to securely create and create proposals and vote on the
-                    blockchain without the need for a centralized server or
-                    authority.
+                    Users can create new proposals to be voted on, one address can vote only once on a proposal
                 </p>
             </div>
             <div className="wallet-connect-heading">
